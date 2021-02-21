@@ -1,20 +1,16 @@
-from data.user import User
 from model.contact import Contact
 
 
 def test_edit_any_contact_from_list_to_random_parameters(app):
-    app.session.login(User.ADMIN)
     contact1 = Contact(lastname='first', firstname='contact')
     contact2 = Contact(lastname='second', firstname='contact')
     app.contact.create(contact1)
     app.contact.create(contact2)
     contact_new_state = Contact().set_random_parameters_to_random_value()
     app.contact.edit_any_contact(contact_new_state)
-    app.session.logout()
 
 
 def test_edit_any_contact_from_list_to_handled_parameters(app):
-    app.session.login(User.ADMIN)
     contact1 = Contact(lastname='first', firstname='contact')
     contact2 = Contact(lastname='second', firstname='contact')
     app.contact.create(contact1)
@@ -26,4 +22,3 @@ def test_edit_any_contact_from_list_to_handled_parameters(app):
                                 amonth='September', aday='4', address_secondary='xxx', phone_secondary='777',
                                 notes='zzz')
     app.contact.edit_any_contact(contact_new_state)
-    app.session.logout()
