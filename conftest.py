@@ -3,13 +3,27 @@ from fixture.application import Application
 from data.user import User
 
 
-@pytest.fixture(scope="session")
-def app(request):
-    fixture = Application()
-    fixture.session.login(User.ADMIN)
+fixture = None
 
+
+@pytest.fixture
+def app(request):
+    global fixture
+
+    if fixture is None:
+        fixture = Application()
+    elif not fixture.is_valid():
+        fixture = Application()
+
+    fixture.session.ensure_login(User.ADMIN)
+
+    return fixture
+
+
+@pytest.fixture(scope="session", autouse=True)
+def stop(request):
     def finalizer():
-        fixture.session.logout()
+        fixture.session.ensure_logout()
         fixture.destroy()
 
     request.addfinalizer(finalizer)
