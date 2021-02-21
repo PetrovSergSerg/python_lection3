@@ -30,3 +30,4 @@ def stop(request):
 
     request.addfinalizer(finalizer)
     return fixture
+
