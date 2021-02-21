@@ -19,6 +19,7 @@ class GroupHelper:
 
     def edit_any_group(self, group: Group):
         wd = self.app.wd
+        self.menu.groups()
 
         checkbox_list = wd.find_elements_by_name("selected[]")
         assert len(checkbox_list) > 0
@@ -60,3 +61,9 @@ class GroupHelper:
     def return_to_groups_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("group page").click()
+
+    def count(self):
+        wd = self.app.wd
+        self.menu.groups()
+
+        return len(wd.find_elements_by_name("selected[]"))

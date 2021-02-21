@@ -22,6 +22,8 @@ def app(request):
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
+    global fixture
+
     def finalizer():
         fixture.session.ensure_logout()
         fixture.destroy()
