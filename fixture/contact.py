@@ -118,3 +118,9 @@ class ContactHelper:
             print("no alert")
         finally:
             self.menu.home()
+
+    def count(self):
+        wd = self.app.wd
+        self.menu.home()
+
+        return len(wd.find_elements_by_name("selected[]"))
